@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="home"/>
+    <item
+        android:id="@+id/accountFragment"
+        android:title="account" />
+    <item
+        android:id="@+id/categoriesFragment"
+        android:title="categories" />
+    <item
+        android:id="@+id/discountsFragment"
+        android:title="discounts" />
+
+</menu>
