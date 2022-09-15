@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.etoertugrul.hizligeliyotask.databinding.ActivityProductBinding
 import com.etoertugrul.hizligeliyotask.ui.viewmodel.ProductViewModel

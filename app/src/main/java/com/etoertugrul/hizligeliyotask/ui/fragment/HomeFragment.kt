@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.etoertugrul.hizligeliyotask.R
 import com.etoertugrul.hizligeliyotask.adapters.CustomRecylerViewAdapter
+import com.etoertugrul.hizligeliyotask.databinding.FragmentHomeBinding
 import com.etoertugrul.hizligeliyotask.models.ProductResponse
 import com.etoertugrul.hizligeliyotask.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -19,22 +18,21 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
 
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
     }
 
@@ -49,9 +47,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecylerView(productResponseItem: ProductResponse?) {
-        val recylerview: RecyclerView = requireView().findViewById(R.id.recylerview_products)
-        recylerview.layoutManager = LinearLayoutManager(requireContext())
-        recylerview.adapter = productResponseItem?.let { CustomRecylerViewAdapter(it) }
+        val recyclerView: RecyclerView = binding.recylerviewProducts
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = productResponseItem?.let { CustomRecylerViewAdapter(it) }
     }
 
 }
