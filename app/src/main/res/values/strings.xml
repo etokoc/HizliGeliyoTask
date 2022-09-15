@@ -10,4 +10,7 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="price_tag">%1s TL</string>
+    <string name="search_edittext_hint">Kategori veya ürün ara</string>
+    <string name="sort_button_text">Sırala</string>
+    <string name="filtre">Filtre</string>
 </resources>

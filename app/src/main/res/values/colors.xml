@@ -13,4 +13,5 @@
     <color name="text_color_bold">#52565C</color>
     <color name="background_color">#FFFFFF</color>
     <color name="text_color_blue">#2D9CDB</color>
+    <color name="mini_bar_color">#E1E1E1</color>
 </resources>

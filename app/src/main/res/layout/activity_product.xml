@@ -6,13 +6,102 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.ProductActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_search"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/background_edittext"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edittext_search"
+                android:layout_width="370dp"
+                android:layout_height="55dp"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="17dp"
+                android:fontFamily="@font/titillium_semibold"
+                android:hint="@string/search_edittext_hint"
+                android:paddingStart="16dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bar" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_sort"
+        android:layout_width="371dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_edittext"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="1dp"
+        app:layout_constraintLeft_toLeftOf="@id/card_view_search"
+        app:layout_constraintRight_toRightOf="@id/card_view_search"
+        app:layout_constraintTop_toBottomOf="@id/card_view_search">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="186dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_sort"
+                android:fontFamily="@font/titillium_semibold"
+                android:paddingLeft="57dp"
+                android:paddingRight="57dp"
+                android:text="@string/sort_button_text"
+                android:textAllCaps="false"
+                android:textColor="@color/text_color_bold" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_mini_bar"
+                android:src="@drawable/ic_bar">
+
+            </ImageView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="186dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_filter_unbadget"
+                android:fontFamily="@font/titillium_semibold"
+                android:paddingLeft="57dp"
+                android:paddingRight="57dp"
+                android:text="@string/filtre"
+                android:textAllCaps="false"
+                android:textColor="@color/text_color_bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:defaultNavHost="true"
+        app:layout_constraintTop_toBottomOf="@id/card_view_sort"
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
