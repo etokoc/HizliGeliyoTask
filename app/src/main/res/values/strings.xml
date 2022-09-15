@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HizliGeliyoTask</string>
+    <string name="hesap_giris_header">Hesabına Giriş Yap</string>
+    <string name="forgot_passowrd_text">Şifremi unuttum</string>
+    <string name="hint_password">Şifre</string>
+    <string name="sign_up_text">Kaydol</string>
+    <string name="account_text">Hesabın yok mu?</string>
+    <string name="button_log_in_text">Giriş yap</string>
+    <string name="mail">Mail</string>
 </resources>
