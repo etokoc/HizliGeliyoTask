@@ -7,4 +7,7 @@
     <string name="account_text">Hesabın yok mu?</string>
     <string name="button_log_in_text">Giriş yap</string>
     <string name="mail">Mail</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="price_tag">%1s TL</string>
 </resources>
