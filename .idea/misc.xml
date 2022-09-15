@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.1" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/drawable/ic_back_button.xml" value="0.1" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/drawable/ic_bar.xml" value="0.1" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/drawable/ic_filter_badget.xml" value="0.1" />
+        <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/layout/activity_product.xml" value="0.22" />
         <entry key="..\:/Users/ErtugrulKoc/AndroidStudioProjects/HizliGeliyoTask/app/src/main/res/menu/nav_menu.xml" value="0.365625" />

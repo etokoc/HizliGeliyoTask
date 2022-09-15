@@ -25,7 +25,6 @@ class ProductActivity : AppCompatActivity() {
             val navController = (supportFragmentManager
                 .findFragmentById(fragmentContainer.id) as NavHostFragment)
                 .navController
-            setupActionBarWithNavController(navController)
             bottomNavigationView.setupWithNavController(navController)
         }
 

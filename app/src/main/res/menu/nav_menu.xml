@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/homeFragment"
-        android:title="home"/>
-    <item
-        android:id="@+id/accountFragment"
-        android:title="account" />
+        android:icon="@drawable/ic_home"
+        android:title="home" />
     <item
         android:id="@+id/categoriesFragment"
+        android:icon="@drawable/ic_category"
         android:title="categories" />
     <item
         android:id="@+id/discountsFragment"
+        android:icon="@drawable/ic_discount"
         android:title="discounts" />
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/ic_account"
+        android:title="account" />
 
 </menu>
