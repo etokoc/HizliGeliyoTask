@@ -3,18 +3,24 @@ package com.etoertugrul.hizligeliyotask.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.etoertugrul.hizligeliyotask.R
 import com.etoertugrul.hizligeliyotask.databinding.ItemRecylerviewBinding
 import com.etoertugrul.hizligeliyotask.models.ProductResponse
 import com.etoertugrul.hizligeliyotask.models.ProductResponseItem
+import java.util.*
 
-class CustomRecylerViewAdapter(var context: Context, var list: ProductResponse) :
-    RecyclerView.Adapter<CustomRecylerViewAdapter.MyViewHolder>() {
+class CustomRecylerViewAdapter(var context: Context, var productList: ProductResponse) :
+    RecyclerView.Adapter<CustomRecylerViewAdapter.MyViewHolder>(), Filterable {
+    var productFilterList = ProductResponse()
+
+    init {
+        productFilterList = productList
+    }
+
     inner class MyViewHolder(val binding: ItemRecylerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -22,6 +28,7 @@ class CustomRecylerViewAdapter(var context: Context, var list: ProductResponse) 
             binding.itemTitle.text = get.title
             binding.itemPrice.text = context.getString(R.string.price_tag, get.price.toString())
 
+            //Image download and push to imageView
             Glide.with(context)
                 .load(get.image)
                 .skipMemoryCache(true)
@@ -37,10 +44,53 @@ class CustomRecylerViewAdapter(var context: Context, var list: ProductResponse) 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(productFilterList[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return productFilterList.size
+    }
+
+    /*
+    item search with getFilter func.
+    if edittext is null, change to normal list with filter list.
+    if searched text contains that is (description,category,title) add to resultlist.
+    resultlist is new productfilter list.
+    * */
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                //wanted post
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    productFilterList = productList
+                } else {
+                    val resultList = ProductResponse()
+                    for (row in productList) {
+                        if (row.title.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT)) || row.description.toLowerCase(
+                                Locale.ROOT
+                            )
+                                .contains(charSearch.toLowerCase(Locale.ROOT)) || row.category.toLowerCase(
+                                Locale.ROOT
+                            )
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
+                        ) {
+                            resultList.add(row)
+                        }
+                    }
+                    productFilterList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = productFilterList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                productFilterList = results?.values as ProductResponse
+                notifyDataSetChanged()
+            }
+
+        }
     }
 }

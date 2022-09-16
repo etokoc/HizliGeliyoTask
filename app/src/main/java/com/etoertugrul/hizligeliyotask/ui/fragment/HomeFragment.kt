@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.etoertugrul.hizligeliyotask.adapters.CustomRecylerViewAdapter
 import com.etoertugrul.hizligeliyotask.databinding.FragmentHomeBinding
@@ -41,16 +41,33 @@ class HomeFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             viewModel.getData()
         }
+        observeData()
+    }
+
+    private fun observeData() {
         viewModel.products.observe(viewLifecycleOwner) { userList ->
-            initRecylerView(userList.body())
+            initView(userList.body())
         }
     }
 
-    private fun initRecylerView(productResponseItem: ProductResponse?) {
-        val recyclerView: RecyclerView = binding.recylerviewProducts
-        recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.adapter = productResponseItem?.let { CustomRecylerViewAdapter(requireContext(),it) }
-    }
+    private fun initView(productResponseItem: ProductResponse?) {
+        binding.apply {
+            //StaggeredGridLayout is 2 column add to recylerView.
+            recylerviewProducts.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            val adapter = productResponseItem?.let {
+                CustomRecylerViewAdapter(
+                    requireContext(),
+                    it
+                )
+            }
+            //RecylerView set adapter
+            recylerviewProducts.adapter = adapter
 
+            //Search edittext.
+            edittextSearch.addTextChangedListener {
+                adapter?.filter?.filter(it.toString())
+            }
+        }
+    }
 }
