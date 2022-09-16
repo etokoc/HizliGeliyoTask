@@ -8,20 +8,20 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.etoertugrul.hizligeliyotask.R
-import com.etoertugrul.hizligeliyotask.databinding.ItemRecylerviewBinding
+import com.etoertugrul.hizligeliyotask.databinding.ItemRecylerviewProductBinding
 import com.etoertugrul.hizligeliyotask.models.ProductResponse
 import com.etoertugrul.hizligeliyotask.models.ProductResponseItem
 import java.util.*
 
-class CustomRecylerViewAdapter(var context: Context, var productList: ProductResponse) :
-    RecyclerView.Adapter<CustomRecylerViewAdapter.MyViewHolder>(), Filterable {
+class ProductRecylerViewAdapter(var context: Context, var productList: ProductResponse) :
+    RecyclerView.Adapter<ProductRecylerViewAdapter.MyViewHolder>(), Filterable {
     var productFilterList = ProductResponse()
 
     init {
         productFilterList = productList
     }
 
-    inner class MyViewHolder(val binding: ItemRecylerviewBinding) :
+    inner class MyViewHolder(val binding: ItemRecylerviewProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(get: ProductResponseItem) {
@@ -39,7 +39,7 @@ class CustomRecylerViewAdapter(var context: Context, var productList: ProductRes
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
-            ItemRecylerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRecylerviewProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 

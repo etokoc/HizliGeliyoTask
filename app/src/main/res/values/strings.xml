@@ -13,4 +13,6 @@
     <string name="search_edittext_hint">Kategori veya ürün ara</string>
     <string name="sort_button_text">Sırala</string>
     <string name="filtre">Filtre</string>
+    <string name="categories_title">Kategoriler</string>
+    <string name="filter_button_text">Filtrele</string>
 </resources>
