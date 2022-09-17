@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var productResponse: ProductResponse
     private var sortedProductResponse = ProductResponse()
+    private lateinit var enumSortedType: EnumSorted
     private var adapter: ProductRecylerViewAdapter? = null
 
     override fun onCreateView(
@@ -92,9 +93,18 @@ class HomeFragment : Fragment() {
             btnSort.setOnClickListener {
                 val popup = PopupMenu(requireContext(), it)
                 popup.menuInflater.inflate(R.menu.sorted_menu, popup.menu)
-                popup.setOnMenuItemClickListener {
-                    sortedProductResponse.addAll(viewModel.sortedList(EnumSorted.CHEAP_TO_EXPENSIVE))
+                popup.setOnMenuItemClickListener { popupMenuId ->
+                    when (popupMenuId.itemId) {
+                        R.id.cheap_to_expensive_item -> {
+                            enumSortedType = EnumSorted.CHEAP_TO_EXPENSIVE
+                        }
+                        R.id.expensive_to_cheap_item -> {
+                            enumSortedType = EnumSorted.EXPENSIVE_TO_CHEAP
+                        }
+                    }
+                    sortedProductResponse.addAll(viewModel.sortedList(enumSortedType))
                     adapter?.notifyDataSetChanged()
+                    recylerviewProducts.scrollToPosition(0)
                     return@setOnMenuItemClickListener true
                 }
                 popup.show()
