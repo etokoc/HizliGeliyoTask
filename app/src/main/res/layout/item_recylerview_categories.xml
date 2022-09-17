@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="41dp"
     android:paddingTop="23dp"
+    android:id="@+id/item_background"
     android:paddingRight="41dp">
 
 

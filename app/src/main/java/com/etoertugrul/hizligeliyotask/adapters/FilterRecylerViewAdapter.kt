@@ -3,8 +3,8 @@ package com.etoertugrul.hizligeliyotask.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.etoertugrul.hizligeliyotask.R
 import com.etoertugrul.hizligeliyotask.databinding.ItemRecylerviewCategoriesBinding
 
 class FilterRecylerViewAdapter(
@@ -13,14 +13,24 @@ class FilterRecylerViewAdapter(
 ) :
     RecyclerView.Adapter<FilterRecylerViewAdapter.MyViewHolder>() {
 
+    var selectedItemPosition = -1
+
     inner class MyViewHolder(val binding: ItemRecylerviewCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(get: String, itemClickListener: OnItemClickListener) {
             binding.itemCategoryTitle.text = get
             binding.root.setOnClickListener {
+                selectedItemPosition = adapterPosition
                 itemClickListener.onItemClicked(get)
+                notifyDataSetChanged()
             }
+            //selected row change background
+            if (selectedItemPosition == adapterPosition)
+                binding.itemBackground.setBackgroundColor(context.getColor(R.color.button_background_yellow_color))
+            else
+                binding.itemBackground.setBackgroundColor(context.getColor(R.color.white))
+
         }
 
     }
