@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             viewModel.getData()
         }
 
-        //Observe fun1
+        //Observe fun
         observeData()
         return binding.root
     }
@@ -81,7 +81,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 adapter?.filter?.filter(it.toString().trim())
             }
 
-            //filter button
+            //filter button (go to filter activity with categories list)
             btnFilter.setOnClickListener {
                 val intent = Intent(requireContext(), FilterActivity::class.java)
                 intent.putExtra(Constants.INTENT_TAG, viewModel.getCategories())
@@ -104,7 +104,14 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             enumSortedType = EnumSorted.EXPENSIVE_TO_CHEAP
                         }
                     }
-                    sortedProductResponse.addAll(viewModel.sortedList(enumSortedType))
+
+                    //Sort process : goto sort fun with filterList
+                    sortedProductResponse.addAll(
+                        viewModel.sortedList(
+                            enumSortedType,
+                            adapter?.productFilterList!!
+                        )
+                    )
                     adapter?.notifyDataSetChanged()
                     recylerviewProducts.scrollToPosition(0)
                     return@setOnMenuItemClickListener true
@@ -112,6 +119,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 popup.show()
             }
 
+            //Swipe refresh listener
             swipeRefreshLayout.setOnRefreshListener(this@HomeFragment)
         }
     }

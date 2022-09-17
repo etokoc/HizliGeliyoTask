@@ -41,16 +41,17 @@ class HomeViewModel : ViewModel() {
         return categoriesList
     }
 
-    fun sortedList(enum: EnumSorted): ProductResponse {
-        productResponse.body()?.sortWith(Comparator { lhs, rhs ->
+    //first desc sorting and if sorted cheap to expensive make productList reverse.
+    fun sortedList(enum: EnumSorted, productList: ProductResponse): ProductResponse {
+        productList.sortWith(Comparator { lhs, rhs ->
             // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
             if (lhs.price > rhs.price) -1 else if (lhs.id < rhs.id) 1 else 0
         })
         if (enum == EnumSorted.CHEAP_TO_EXPENSIVE)
         {
-            productResponse.body()!!.reverse()
+            productList.reverse()
         }
 
-        return productResponse.body()!!
+        return productList
     }
 }
