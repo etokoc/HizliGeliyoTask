@@ -17,4 +17,7 @@
     <string name="filter_button_text">Filtrele</string>
     <string name="cheap_to_expensive">Önce en ucuz</string>
     <string name="expensive_to_cheap">Önce en pahalı</string>
+    <string name="custom_mail">hizligeliyo@gmail.com</string>
+    <string name="custom_name">Ertuğrul KOÇ</string>
+    <string name="custom_wallet">Bakiye: 3486.00 ₺</string>
 </resources>
