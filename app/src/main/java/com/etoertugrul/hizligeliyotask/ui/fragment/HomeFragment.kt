@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.etoertugrul.hizligeliyotask.R
 import com.etoertugrul.hizligeliyotask.adapters.ProductRecylerViewAdapter
 import com.etoertugrul.hizligeliyotask.databinding.FragmentHomeBinding
@@ -23,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     private lateinit var binding: FragmentHomeBinding
@@ -51,11 +52,12 @@ class HomeFragment : Fragment() {
     }
 
 
-    //Listen to data from get api.
+    //Listen to data from get api.(if swiperefresh is open, next to stop)
     private fun observeData() {
         viewModel.products.observe(viewLifecycleOwner) { userList ->
             productResponse = userList.body()!!
             initView(productResponse)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -109,6 +111,8 @@ class HomeFragment : Fragment() {
                 }
                 popup.show()
             }
+
+            swipeRefreshLayout.setOnRefreshListener(this@HomeFragment)
         }
     }
 
@@ -119,7 +123,6 @@ class HomeFragment : Fragment() {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 val tag = data?.getStringExtra(Constants.ACTIVITY_RESULT_TAG)
                 binding.edittextSearch.setText(tag)
-                adapter?.filter?.filter(tag)
                 if (!tag.equals(""))
                     binding.btnFilter.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_filter_badget,
@@ -136,5 +139,10 @@ class HomeFragment : Fragment() {
                     )
             }
         }
+    }
+
+    //call from refresh layout
+    override fun onRefresh() {
+        viewModel.getData()
     }
 }
