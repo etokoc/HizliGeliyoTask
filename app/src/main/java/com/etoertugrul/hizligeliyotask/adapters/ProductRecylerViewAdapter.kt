@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.etoertugrul.hizligeliyotask.R
@@ -39,7 +40,11 @@ class ProductRecylerViewAdapter(var context: Context, var productList: ProductRe
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
-            ItemRecylerviewProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRecylerviewProductBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return MyViewHolder(binding)
     }
 

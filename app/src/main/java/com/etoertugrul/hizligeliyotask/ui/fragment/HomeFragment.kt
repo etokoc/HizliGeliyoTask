@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.etoertugrul.hizligeliyotask.models.ProductResponse
 import com.etoertugrul.hizligeliyotask.ui.activity.FilterActivity
 import com.etoertugrul.hizligeliyotask.ui.viewmodel.HomeViewModel
 import com.etoertugrul.hizligeliyotask.util.Constants
+import com.etoertugrul.hizligeliyotask.util.EnumSorted
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +28,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
+    private lateinit var productResponse: ProductResponse
+    private var sortedProductResponse = ProductResponse()
+    private var adapter: ProductRecylerViewAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,20 +38,27 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        //data catch from api with viewModel.
         CoroutineScope(Dispatchers.IO).launch {
             viewModel.getData()
         }
+
+        //Observe fun1
         observeData()
         return binding.root
     }
 
+
+    //Listen to data from get api.
     private fun observeData() {
         viewModel.products.observe(viewLifecycleOwner) { userList ->
-            initView(userList.body())
+            productResponse = userList.body()!!
+            initView(productResponse)
         }
     }
 
-    var adapter: ProductRecylerViewAdapter? = null
+    //initialize views
     private fun initView(productResponseItem: ProductResponse?) {
         binding.apply {
             //StaggeredGridLayout is 2 column add to recylerView.
@@ -75,9 +87,22 @@ class HomeFragment : Fragment() {
                     Constants.ACTIVITY_CODE
                 )
             }
+
+            //sort button
+            btnSort.setOnClickListener {
+                val popup = PopupMenu(requireContext(), it)
+                popup.menuInflater.inflate(R.menu.sorted_menu, popup.menu)
+                popup.setOnMenuItemClickListener {
+                    sortedProductResponse.addAll(viewModel.sortedList(EnumSorted.CHEAP_TO_EXPENSIVE))
+                    adapter?.notifyDataSetChanged()
+                    return@setOnMenuItemClickListener true
+                }
+                popup.show()
+            }
         }
     }
 
+    //Get selected category from filter activity.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.ACTIVITY_CODE) {
@@ -86,9 +111,19 @@ class HomeFragment : Fragment() {
                 binding.edittextSearch.setText(tag)
                 adapter?.filter?.filter(tag)
                 if (!tag.equals(""))
-                    binding.btnFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_filter_badget,0,0,0)
+                    binding.btnFilter.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_filter_badget,
+                        0,
+                        0,
+                        0
+                    )
                 else
-                    binding.btnFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_filter_unbadget,0,0,0)
+                    binding.btnFilter.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_filter_unbadget,
+                        0,
+                        0,
+                        0
+                    )
             }
         }
     }

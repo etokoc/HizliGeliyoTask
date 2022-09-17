@@ -15,4 +15,6 @@
     <string name="filtre">Filtre</string>
     <string name="categories_title">Kategoriler</string>
     <string name="filter_button_text">Filtrele</string>
+    <string name="cheap_to_expensive">Önce en ucuz</string>
+    <string name="expensive_to_cheap">Önce en pahalı</string>
 </resources>
